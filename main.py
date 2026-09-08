@@ -6,25 +6,25 @@ is_client = True
 print(name)
 print(type(name))
 
-business_name = "Urban Style Barbershop"
-haircut_price = 350
-discount_percentage = 15
-frequent_client = False
+def generate_welcome(business_name, haircut_price, frequent_client):
+    """Return a welcome message with the final haircut price already calculated."""
+    discount_percentage = 15
 
-discounted_price = haircut_price - (haircut_price * discount_percentage / 100)
+    if frequent_client:
+        discounted_price = haircut_price - (haircut_price * discount_percentage / 100)
+        return (
+            f"Welcome back to {business_name}! "
+            f"Your haircut costs ${discounted_price:.2f} "
+            f"with your frequent client discount."
+        )
 
-if frequent_client:
-    message = (
-        f"Welcome back to {business_name}! "
-        f"Your haircut costos ${discounted_price:.2f} "
-        f"with your frequent client discount. "
-    )
-else:
-    message = (
+    return (
         f"Welcome to {business_name}! "
-        f"Your haircut costs ${haircut_price:.2f}. "
+        f"Your haircut costs ${haircut_price:.2f}."
     )
 
-print(message)
+
+print(generate_welcome("Urban Style Barbershop", 350, False))
+print(generate_welcome("Urban Style Barbershop", 350, True))
 
 
