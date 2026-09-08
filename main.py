@@ -29,7 +29,18 @@ def generate_welcome(business_name, haircut_price, frequent_client):
     )
 
 
+def generate_receipt(customer_name, welcome_message):
+    """Return a formatted multi-line receipt for a customer."""
+    return (
+        "--- Urban Style Receipt ---\n"
+        f"Customer: {customer_name}\n"
+        f"{welcome_message}"
+    )
+
+
 print(generate_welcome("Urban Style Barbershop", 350, False))
 print(generate_welcome("Urban Style Barbershop", 350, True))
 print(generate_welcome("Urban Style Barbershop", -50, True))
 print(generate_welcome("Urban Style Barbershop", 0, True))
+print(generate_receipt("Carlos", generate_welcome(
+    "Urban Style Barbershop", 350, True)))
