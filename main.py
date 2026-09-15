@@ -1,26 +1,6 @@
-customer_name = input("Enter your name: ")
-
-new_client_answer = input(
-    "Are you a new client? (yes/no): ").strip().lower()
-is_new_client = new_client_answer == "yes"
-
-if is_new_client:
-    frequent_answer = "no"
-    first_visit_answer = "no"
-else:
-    frequent_answer = input(
-        "Are you a frequent client? (yes/no): ").strip().lower()
-
-    first_visit_answer = input(
-        "Is this your first visit of the month? (yes/no): ").strip().lower()
-
-is_frequent = frequent_answer == "yes"
-is_first_visit = first_visit_answer == "yes"
-
-
 def generate_welcome(business_name, haircut_price, frequent_client,
                      first_visit_this_month=False, new_client=False):
-    """Return a welcome message with the final haircut price already calculated."""
+    """Return a welcome message with the final haircut price calculated."""
     frequent_client_discount = 15
     first_visit_discount = 20
 
@@ -34,8 +14,9 @@ def generate_welcome(business_name, haircut_price, frequent_client,
         )
 
     if first_visit_this_month:
-        discounted_price = haircut_price - \
-            (haircut_price * first_visit_discount / 100)
+        discounted_price = haircut_price - (
+            haircut_price * first_visit_discount / 100
+        )
         return (
             f"Welcome to {business_name}! "
             f"Your haircut costs ${discounted_price:.2f} "
@@ -43,8 +24,9 @@ def generate_welcome(business_name, haircut_price, frequent_client,
         )
 
     if frequent_client:
-        discounted_price = haircut_price - \
-            (haircut_price * frequent_client_discount / 100)
+        discounted_price = haircut_price - (
+            haircut_price * frequent_client_discount / 100
+        )
         return (
             f"Welcome back to {business_name}! "
             f"Your haircut costs ${discounted_price:.2f} "
@@ -66,12 +48,42 @@ def generate_receipt(customer_name, welcome_message):
     )
 
 
+def ask_yes_no(question):
+    """Ask for a yes/no answer and return it as a boolean."""
+    while True:
+        answer = input(question).strip().lower()
+
+        if answer == "yes":
+            return True
+
+        if answer == "no":
+            return False
+
+        print("Invalid input. Please enter yes or no.")
+
+
+customer_name = input("Enter your name: ")
+
+is_new_client = ask_yes_no("Are you a new client? (yes/no): ")
+
+if is_new_client:
+    is_frequent = False
+    is_first_visit = False
+else:
+    is_frequent = ask_yes_no(
+        "Are you a frequent client? (yes/no): "
+    )
+    is_first_visit = ask_yes_no(
+        "Is this your first visit of the month? (yes/no): "
+    )
+
+
 welcome_message = generate_welcome(
     business_name="Urban Style",
     haircut_price=350,
     new_client=is_new_client,
     frequent_client=is_frequent,
-    first_visit_this_month=is_first_visit
+    first_visit_this_month=is_first_visit,
 )
 
 print(generate_receipt(customer_name, welcome_message))
