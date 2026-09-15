@@ -62,7 +62,23 @@ def ask_yes_no(question):
         print("Invalid input. Please enter yes or no.")
 
 
-customer_name = input("Enter your name: ")
+def ask_name(question):
+    """Ask for a name and return it with the first letter capitalized."""
+    while True:
+        name = input(question).strip()
+        valid_characters = all(
+            character.isalpha() or character in " '-"
+            for character in name
+        )
+        contains_letter = any(character.isalpha() for character in name)
+
+        if name and valid_characters and contains_letter:
+            return name.capitalize()
+
+        print("Invalid name. Please enter letters only.")
+
+
+customer_name = ask_name("Enter your name: ")
 
 is_new_client = ask_yes_no("Are you a new client? (yes/no): ")
 
